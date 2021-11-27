@@ -30,7 +30,7 @@ namespace QuikSharp
         /// <summary>
         /// Создание новой заявки.
         /// </summary>
-        /// <param name="order">Инфомация о новой заявки, на основе которой будет сформирована транзакция.</param>
+        /// <param name="order">Информация о новой заявки, на основе которой будет сформирована транзакция.</param>
         public async Task<long> CreateOrder(Order order)
         {
             Transaction newOrderTransaction = new Transaction
@@ -96,7 +96,7 @@ namespace QuikSharp
         /// <param name="orderType">Тип заявки (L - лимитная, M - рыночная)</param>
         /// <param name="executionCondition">Условие исполнения заявки (PUT_IN_QUEUE, FILL_OR_KILL, KILL_BALANCE)</param>
         /// <param name="clientCode">Код клиента</param>
-        async Task<Order> SendOrder(string classCode, string securityCode, string accountID, Operation operation, decimal price, int qty, TransactionType orderType, ExecutionCondition executionCondition = ExecutionCondition.PUT_IN_QUEUE, string clientCode = null)
+        private async Task<Order> SendOrder(string classCode, string securityCode, string accountID, Operation operation, decimal price, int qty, TransactionType orderType, ExecutionCondition executionCondition = ExecutionCondition.PUT_IN_QUEUE, string clientCode = null)
         {
             long res = 0;
             bool set = false;
@@ -135,13 +135,13 @@ namespace QuikSharp
                     }
                     catch
                     {
-                        order_result = new Order {RejectReason = "Неудачная попытка получения заявки по ID-транзакции №" + res};
+                        order_result = new Order { RejectReason = "Неудачная попытка получения заявки по ID-транзакции №" + res };
                     }
                 }
                 else
                 {
                     if (order_result != null) order_result.RejectReason = newOrderTransaction.ErrorMessage;
-                    else order_result = new Order {RejectReason = newOrderTransaction.ErrorMessage};
+                    else order_result = new Order { RejectReason = newOrderTransaction.ErrorMessage };
                 }
 
                 if (order_result != null && (order_result.RejectReason != "" || order_result.OrderNum > 0)) set = true;

@@ -53,7 +53,7 @@ namespace QuikSharp
         /// <summary>
         /// Возвращает список записей из таблицы 'Лимиты по бумагам', отфильтрованных по коду инструмента.
         /// </summary>
-        /// <param name="secCode">Код инструментаю</param>
+        /// <param name="secCode">Код инструмента</param>
         /// <returns></returns>
         Task<List<DepoLimitEx>> GetDepoLimits(string secCode);
 
@@ -179,9 +179,9 @@ namespace QuikSharp
         /// <summary>
         /// Функция отправляет транзакцию на сервер QUIK и сохраняет ее в словаре транзакций
         /// с идентификатором trans_id. Возвращает идентификатор
-        /// транзакции trans_id (позитивное число) в случае успеха или индентификатор,
+        /// транзакции trans_id (позитивное число) в случае успеха или идентификатор,
         /// умноженный на -1 (-trans_id) (негативное число) в случае ошибки. Также в случае
-        /// ошибки функция созраняет текст ошибки в свойтво ErrorMessage транзакции.
+        /// ошибки функция сохраняет текст ошибки в свойство ErrorMessage транзакции.
         /// </summary>
         Task<long> SendTransaction(Transaction transaction);
 
@@ -190,6 +190,7 @@ namespace QuikSharp
         ///  При заданном параметре is_market=true, необходимо передать параметр price=0, иначе будет рассчитано максимально возможное количество лотов в заявке по цене price.
         /// </summary>
         Task<CalcBuySellResult> CalcBuySell(string classCode, string secCode, string clientCode, string trdAccId, double price, bool isBuy, bool isMarket);
+
         /// <summary>
         ///  функция для получения значений параметров таблицы «Клиентский портфель»
         /// </summary>
